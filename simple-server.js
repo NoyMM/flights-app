@@ -18,11 +18,12 @@ function handleFile(data, ending, res) {
 console.log(__filename, module, global)
 
 http.createServer(function (req, res) {
+    const q = url.parse(req.url);
     //let ending = req.url.split('.').pop();
-    let ending = url.parse(req.url).split('.');    
-    fs.readFile('public/' + req.url, function(err, data) {
+    let extention = q.pathname.split('.')[1];    
+    fs.readFile('public' + q.pathname, function(err, data) {
         if(data) {
-            handleFile(data, ending, res);
+            handleFile(data, extention, res);
         }
         else {
             res.writeHead(404, {'Content-Type': 'text/plain'});
