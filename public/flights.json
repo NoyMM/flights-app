@@ -1,0 +1,26 @@
+[
+    {
+      "id": "ISR-6090",
+      "from": "Tel Aviv",
+      "to": "Barcelona",
+      "departure": "2018-02-25 21:40",
+      "arrival": "2018-03-25 1:20",
+      "by": "El Al"
+    },
+    {
+      "id": "ISR-7791",
+      "from": "Rosh Ha'aayn",
+      "to": "Heifa",
+      "departure": "2022-03-22 14:35",
+      "arrival": "2021-03-25 17:20",
+      "by": "Noy Airlines"
+    },
+    {
+        "id": "ISR-7019",
+        "from": "Ganey Tikwa",
+        "to": "Tel Aviv",
+        "departure": "2022-03-22 14:35",
+        "arrival": "2021-03-25 17:20",
+        "by": "Shir Airlines"
+      }
+  ]
