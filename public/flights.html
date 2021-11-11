@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <span>Insert Start Point:</span>
+    <input id="from"> 
+    <br>
+
+    <span>Insert Required Airline:</span>
+    <input id="by"> 
+    <br>
+    
+    <button id="filter" type="button"> Filter </button>
+    <br>
+
+    <div id = "flightData">
+
+    </div>
+  </body>
+</html>
+
+<script>
+
+  const emptyMessage = 'No data to display';
+
+  function appendData(data) {
+    var mainContainer = document.getElementById('flightData');
+    for (var i = 0; i < data.length; i++) {
+      var div = document.createElement('div');
+      let flight = `ID: ${data[i].id}  <br> From: ${data[i].from} <br> To: ${data[i].to} <br> Departure: ${data[i].departure} <br>
+      Arrival: ${data[i].arrival} <br> By: ${data[i].by} <br>`;
+      div.innerText = flights;
+      mainContainer.appendChild(div);
+    }
+  }
+
+  let params = { from: '', by: '' };
+
+  function modifyParam(param) {
+    let newVal = param.split(' ').join('_').toLowerCase();
+    for(let i=newVal.length-1; i>=0; i--){
+      if (newVal[i] === '_')
+      {
+        newVal = newVal.slice(0, i);
+      }
+      else {
+        break;
+      }
+    }
+    return newVal;
+  }
+
+  const fetchButton = document.getElementById('filter');
+
+  fetchButton.onclick = function () {
+    let url = 'flights.json';
+
+    params['from'] = modifyParam(document.getElementById('from').value);
+    params['by'] = modifyParam(document.getElementById('by').value);
+
+    console.log(params);
+
+    if (params[from] !== '' || params[by] !== '') {
+      let first = true;
+      for (const [key, value] of Object.entries(params)) {
+        if (value) {
+          if (first) {
+            url += '?' + key + '=' + value;
+            first = false;
+          } else {
+            url += '&' + key + '=' + value;
+          }
+        }
+      }
+    }
+    console.log(url)
+
+    fetch(url)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        appendData(data);
+      });
+  };
+</script>
+
