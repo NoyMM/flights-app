@@ -32,7 +32,7 @@
     var mainContainer = document.getElementById('flightData');
     for (var i = 0; i < data.length; i++) {
       var div = document.createElement('div');
-      let flight = `ID: ${data[i].id}  <br> From: ${data[i].from} <br> To: ${data[i].to} <br> Departure: ${data[i].departure} <br>
+      let flights = `ID: ${data[i].id}  <br> From: ${data[i].from} <br> To: ${data[i].to} <br> Departure: ${data[i].departure} <br>
       Arrival: ${data[i].arrival} <br> By: ${data[i].by} <br>`;
       div.innerText = flights;
       mainContainer.appendChild(div);
