@@ -8,8 +8,24 @@
       "by": "El Al"
     },
     {
+      "id": "ISR-6091",
+      "from": "Tel Aviv",
+      "to": "Barcelona",
+      "departure": "2018-02-25 21:40",
+      "arrival": "2018-03-25 1:20",
+      "by": "El Al"
+    },
+    {
+      "id": "ISR-6092",
+      "from": "Tel Aviv",
+      "to": "Barcelona",
+      "departure": "2018-02-25 21:40",
+      "arrival": "2018-03-25 1:20",
+      "by": "El A"
+    },
+    {
       "id": "ISR-7791",
-      "from": "Rosh Ha'aayn",
+      "from": "Rosh Haayn",
       "to": "Heifa",
       "departure": "2022-03-22 14:35",
       "arrival": "2021-03-25 17:20",
@@ -22,5 +38,5 @@
         "departure": "2022-03-22 14:35",
         "arrival": "2021-03-25 17:20",
         "by": "Shir Airlines"
-      }
+    }
   ]
