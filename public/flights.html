@@ -31,9 +31,11 @@
       var div = document.createElement('div');
       let flights = 
         `ID: ${data[i].id}  <br> 
-        From: ${data[i].from} <br> 
-        To: ${data[i].to} <br> Departure: ${data[i].departure} <br>
-      Arrival: ${data[i].arrival} <br> By: ${data[i].by} <br>`;
+         From: ${data[i].from} <br> 
+         To: ${data[i].to} <br> 
+         Departure: ${data[i].departure} <br>
+         Arrival: ${data[i].arrival} <br> 
+         By: ${data[i].by} <br>`;
       div.innerHTML = flights;
       mainContainer.appendChild(div);
     }

@@ -12,9 +12,10 @@ let filterToValueMap;
 
 
 function filterJsonFile(data, filterKey, filterValue) {
-    return JSON.stringify(JSON.parse(data).filter(function(entry) {
+    let filterdData = JSON.parse(data).filter(function(entry) {
         return entry[filterKey].toLowerCase() === filterValue.toLowerCase();
-    }));
+    })
+    return JSON.stringify(filterdData);
 }
 
 
@@ -22,7 +23,7 @@ function updateFiltersValue(query) {
     let splitedQuery = query.split('&');
     splitedQuery.forEach(function(q) {
         let KeyAndValue = q.split('=');
-        filterToValueMap.set(KeyAndValue[0], KeyAndValue[1].replace('_', ' '));
+        filterToValueMap.set(KeyAndValue[0], KeyAndValue[1].replaceAll('_', ' '));
     } );
 }
 
@@ -72,9 +73,11 @@ http.createServer(function(request, response) {
     filters.forEach(filter => filterToValueMap.set(filter, ''));
 
     const parsedUrl = url.parse(request.url);
-    const fileExtention = parsedUrl.pathname.split('.')[1]; 
+    const pathName = parsedUrl.pathname;
+
+    const fileExtention = pathName.includes('.') ? pathName.split('.')[1] : ''; 
     
-    handleFile(response, parsedUrl.pathname, parsedUrl.query, fileExtention);
+    handleFile(response, pathName, parsedUrl.query, fileExtention);
 
 }).listen(8080, function() {
     console.log('Client is available at http://localhost:8080');
