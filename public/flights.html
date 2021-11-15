@@ -8,24 +8,21 @@
   </head>
   <body>
     <span>Insert Start Point:</span>
-    <input id="from"> 
-    <br>
+    <input id="from" />
+    <br />
 
     <span>Insert Required Airline:</span>
-    <input id="by"> 
-    <br>
-    
-    <button id="filter" type="button"> Filter </button>
-    <br>
+    <input id="by" />
+    <br />
 
-    <div id = "flightData">
+    <button id="filter" type="button">Filter</button>
+    <br />
 
-    </div>
+    <div id="flightData"></div>
   </body>
 </html>
 
 <script>
-
   const emptyMessage = 'No data to display';
 
   function appendData(data) {
@@ -34,28 +31,28 @@
       var div = document.createElement('div');
       let flights = `ID: ${data[i].id}  <br> From: ${data[i].from} <br> To: ${data[i].to} <br> Departure: ${data[i].departure} <br>
       Arrival: ${data[i].arrival} <br> By: ${data[i].by} <br>`;
-      div.innerText = flights;
+      div.innerHTML = flights;
       mainContainer.appendChild(div);
     }
   }
 
   function deletePreviousData() {
     var mainContainer = document.getElementById('flightData');
-    while (mainContainer.firstChild) {
-      mainContainer.removeChild(mainContainer.firstChild);
-    }
+    mainContainer.innerHTML = '';
   }
 
-  let params = { from: '', by: '' };
+  const knownParams = ['from', 'by'];
+  let params = {};
+  knownParams.forEach((param) => {
+    params[param] = '';
+  });
 
   function modifyParam(param) {
     let newVal = param.split(' ').join('_').toLowerCase();
-    for(let i=newVal.length-1; i>=0; i--){
-      if (newVal[i] === '_')
-      {
+    for (let i = newVal.length - 1; i >= 0; i--) {
+      if (newVal[i] === '_') {
         newVal = newVal.slice(0, i);
-      }
-      else {
+      } else {
         break;
       }
     }
@@ -64,29 +61,17 @@
 
   const fetchButton = document.getElementById('filter');
 
-  fetchButton.onclick = function () {
-    let url = 'flights.json';
-
-    params['from'] = modifyParam(document.getElementById('from').value);
-    params['by'] = modifyParam(document.getElementById('by').value);
-
-    console.log(params);
-
-    if (params[from] !== '' || params[by] !== '') {
-      let first = true;
-      for (const [key, value] of Object.entries(params)) {
-        if (value) {
-          if (first) {
-            url += '?' + key + '=' + value;
-            first = false;
-          } else {
-            url += '&' + key + '=' + value;
-          }
-        }
+  function createURL(url) {
+    url += '?';
+    for (const [key, value] of Object.entries(params)) {
+      if (value) {
+        url += key + '=' + value + '&';
       }
     }
-    console.log(url)
+    return url.slice(0, -1);
+  }
 
+  function fetchProcess(url) {
     fetch(url)
       .then(function (response) {
         return response.json();
@@ -95,6 +80,25 @@
         deletePreviousData();
         appendData(data);
       });
+  }
+
+  function populateParams() {
+    params.forEach(function (key, value) {
+      const element = document.getElementById(key);
+      if (element) {
+        params[key] = modifyParam(element.value);
+      }
+    });
+  }
+
+  fetchButton.onclick = function () {
+    let url = 'flights.json';
+
+    populateParams();
+    console.log(params);
+    url = createURL(url);
+    console.log(url);
+
+    fetchProcess(url);
   };
 </script>
-
