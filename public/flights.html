@@ -29,7 +29,10 @@
     var mainContainer = document.getElementById('flightData');
     for (var i = 0; i < data.length; i++) {
       var div = document.createElement('div');
-      let flights = `ID: ${data[i].id}  <br> From: ${data[i].from} <br> To: ${data[i].to} <br> Departure: ${data[i].departure} <br>
+      let flights = 
+        `ID: ${data[i].id}  <br> 
+        From: ${data[i].from} <br> 
+        To: ${data[i].to} <br> Departure: ${data[i].departure} <br>
       Arrival: ${data[i].arrival} <br> By: ${data[i].by} <br>`;
       div.innerHTML = flights;
       mainContainer.appendChild(div);
@@ -42,9 +45,9 @@
   }
 
   const knownParams = ['from', 'by'];
-  let params = {};
+  let params = new Map();
   knownParams.forEach((param) => {
-    params[param] = '';
+    params.set(param, '');
   });
 
   function modifyParam(param) {
@@ -63,11 +66,11 @@
 
   function createURL(url) {
     url += '?';
-    for (const [key, value] of Object.entries(params)) {
+    params.forEach((value, key) => { 
       if (value) {
         url += key + '=' + value + '&';
       }
-    }
+    });
     return url.slice(0, -1);
   }
 
@@ -83,10 +86,10 @@
   }
 
   function populateParams() {
-    params.forEach(function (key, value) {
+    params.forEach((value, key) => {
       const element = document.getElementById(key);
       if (element) {
-        params[key] = modifyParam(element.value);
+        params.set(key, modifyParam(element.value));
       }
     });
   }
